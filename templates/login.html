@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Nihon Cloud Storage</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --main: #0f0f0f;
+            --topnav: #17191d;
+            --card-bg: #1a1a1a;
+            --accent: #cb0d3f;
+            --accentlighter: #a00a32;
+            --text-color: #ffffff;
+            --gray-bg: #2d2d2d;
+            --focus-color: #cb0d3f;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            background: var(--main);
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .form-container {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-in-out;
+            z-index: 1;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .circle {
+            position: absolute;
+            width: 300px;
+            height: 300px; 
+            background: radial-gradient(circle, rgba(203, 13, 63, 0.8), transparent);
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: 0.5;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .form-container h1 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            animation: textSlideIn 1s ease-in-out;
+        }
+
+        @keyframes textSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .form-container label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            display: block;
+            animation: textSlideIn 1s ease-in-out;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            background: var(--gray-bg);
+            border: 1px solid #3d3d3d;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            outline: none;
+        }
+
+        .form-container input:focus {
+            border-color: var(--focus-color);
+            box-shadow: 0 0 10px rgba(203, 13, 63, 0.6);
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            background: var(--accent);
+            color: var(--text-color);
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-container button:hover {
+            background: var(--accentlighter);
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px rgba(203, 13, 63, 0.6);
+        }
+
+        .form-container .alternate-login {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .form-container .alternate-login a {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            background: #7289da;
+            color: var(--text-color);
+            font-weight: 500;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-container .alternate-login a:hover {
+            background: #5b6eae;
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px rgba(114, 137, 218, 0.6);
+        }
+
+        .form-container .messages {
+            margin-top: 1rem;
+        }
+
+        .form-container .messages div {
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .form-container .messages .text-red-500 {
+            background: rgba(229, 62, 62, 0.2);
+            color: #e53e3e;
+        }
+
+        .form-container .messages .text-green-500 {
+            background: rgba(72, 187, 120, 0.2);
+            color: #48bb78;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container w-96">
+        <div class="circle" id="circle1"></div>
+        <div class="circle" id="circle2"></div>
+        <div class="text-center mb-6">
+            <img src="{{ url_for('static', filename='assets/logo.png') }}" alt="Logo" class="w-20 mx-auto mb-4">
+            <h1>Nihon Cloud Storage</h1>
+        </div>
+        <h2 class="text-2xl mb-4 text-center">Login</h2>
+        <form action="{{ url_for('login') }}" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <div>
+                <label for="username" class="block mb-2">Username</label>
+                <input type="text" name="username" id="username" class="p-2">
+            </div>
+            <div>
+                <label for="password" class="block mb-2">Password</label>
+                <input type="password" name="password" id="password" class="p-2">
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="messages mt-4">
+                {% for category, message in messages %}
+                <div class="text-{{ 'red-500' if category == 'danger' else 'green-500' }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% endwith %}
+        <div class="alternate-login">
+            <a href="{{ url_for('register') }}">Register</a>
+        </div>
+    </div>
+
+    <script>
+        function getRandomPosition(element) {
+            const x = Math.floor(Math.random() * (element.clientWidth - 300));
+            const y = Math.floor(Math.random() * (element.clientHeight - 300));
+            return { x, y };
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const container = document.querySelector('.form-container');
+            const circle1 = document.getElementById('circle1');
+            const circle2 = document.getElementById('circle2');
+
+            const pos1 = getRandomPosition(container);
+            circle1.style.top = `${pos1.y}px`;
+            circle1.style.left = `${pos1.x}px`;
+
+            const pos2 = getRandomPosition(container);
+            circle2.style.top = `${pos2.y}px`;
+            circle2.style.left = `${pos2.x}px`;
+        });
+    </script>
+</body>
+</html>

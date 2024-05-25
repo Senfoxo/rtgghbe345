@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raw Data - Nihon Cloud Storage</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+        :root {
+            --topnav: #17191d;
+            --main: #0f0f0f;
+            --accent: #cb0d3f;
+            --accentlighter: #a00a32;
+            --accent-gradient: linear-gradient(135deg, #cb0d3f 0%, #a00a32 100%);
+            --text-color: #ffffff;
+            --discord-blue: #7289da;
+            --input-bg: #1a1b1f;
+            --button-bg: #a00a32;
+            --button-bg-hover: #cb0d3f;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            background: var(--main);
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-col {
+            flex-direction: column;
+        }
+
+        .flex-row {
+            flex-direction: row;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .h-screen {
+            height: 100vh;
+        }
+
+        .bg-main {
+            background-color: var(--main);
+        }
+
+        .bg-topnav {
+            background-color: var(--topnav);
+        }
+
+        .bg-accent {
+            background-color: var(--accent);
+        }
+
+        .bg-accent-gradient {
+            background: var(--accent-gradient);
+        }
+
+        .text-white {
+            color: var(--text-color);
+        }
+
+        .font-sans {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .w-16 {
+            width: 4rem;
+        }
+
+        .p-4 {
+            padding: 1rem;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-8 {
+            margin-bottom: 2rem;
+        }
+
+        .rounded-lg {
+            border-radius: 0.5rem;
+        }
+
+        .shadow-lg {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .block {
+            display: block;
+        }
+
+        .mt-4 {
+            margin-top: 1rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .text-gray-300 {
+            color: #d1d5db;
+        }
+
+        .text-red-600 {
+            color: #e53e3e;
+        }
+
+        .transition-colors {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+
+        .duration-300 {
+            transition-duration: 300ms;
+        }
+
+        .rounded-lg {
+            border-radius: 0.5rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .h-full {
+            height: 100%;
+        }
+
+        .space-x-4 {
+            margin-right: -1rem;
+        }
+
+        .ml-64 {
+            margin-left: 16rem;
+        }
+
+        .p-8 {
+            padding: 2rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .text-5xl {
+            font-size: 3rem;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+        }
+
+        .text-md {
+            font-size: 1rem;
+        }
+
+        .bg-gray-900 {
+            background-color: #17191d;
+        }
+
+        .nav-link {
+            font-family: 'Poppins', sans-serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0.5rem 1rem;
+            margin: 0 0.25rem;
+            display: flex;
+            align-items: center;
+            color: #d1d5db;
+            border-radius: 0.5rem;
+            background: none;
+            transition: transform 0.3s;
+        }
+
+        .nav-link:hover {
+            background: var(--accent-gradient);
+            color: var(--text-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-gradient {
+            background: var(--accent-gradient);
+            color: var(--text-color);
+            transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, #a00a32 0%, #cb0d3f 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 1rem;
+            background-color: var(--topnav);
+        }
+
+        .navbar a {
+            margin: 0 0.25rem;
+        }
+
+        .bottom-icons {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+
+        .bottom-icons a {
+            text-align: center;
+            transition: color 0.3s;
+        }
+
+        .bottom-icons a:hover .fab.fa-discord {
+            color: var(--discord-blue);
+        }
+
+        .mode-icon {
+            transition: color 0.3s;
+        }
+
+        .header {
+            padding: 1rem 1rem 1rem 18rem;
+        }
+
+        .gradient-text {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0.5rem;
+            margin-top: auto;
+            background: var(--topnav);
+            border-radius: 0.5rem;
+            width: 100%;
+        }
+
+        .profile img {
+            width: 3rem; 
+            height: 3rem; 
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            flex-grow: 1;
+            font-size: 0.875rem;
+            position: relative;
+        }
+
+        .profile-info .username {
+            font-size: 0.9em;
+            font-weight: 600;
+            line-height: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-info .role {
+            font-size: 0.6rem;
+            padding: 0.125rem 0.25rem;
+            border-radius: 0.25rem;
+            color: var(--text-color);
+            background-color: rgba(45, 55, 72, 0.6);
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .profile-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-actions i {
+            margin: 0 0.25rem;
+            color: #8e9297;
+            cursor: pointer;
+        }
+
+        .profile-actions i:hover {
+            color: var(--text-color);
+        }
+
+        .nav-link {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-gradient);
+            z-index: -1;
+            transition: left 0.3s ease-in-out;
+        }
+
+        .nav-link:hover::before {
+            left: 0;
+        }
+
+        .profile {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-gradient);
+            z-index: -1;
+            transition: left 0.3s ease-in-out;
+        }
+
+        .profile:hover::before {
+            left: 0;
+        }
+
+        .nav-link:hover {
+            color: var(--text-color);
+            transform: translateY(-2px);
+        }
+
+        .profile-actions i {
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .profile-actions i:hover {
+            transform: rotate(360deg);
+        }
+
+        .main-content {
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            background: #1f1f1f;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .search-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .search-container input {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            padding: 0.5rem;
+            flex-grow: 1;
+            border-radius: 0.5rem;
+            outline: none;
+        }
+
+        .search-container button {
+            background: var(--accent);
+            border: none;
+            color: var(--text-color);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            margin-left: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+
+        .search-container button:hover {
+            background: var(--accentlighter);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card {
+            background: #1f1f1f;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            width: 300px;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .card-description {
+            font-size: 1rem;
+            color: #d1d5db;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+            color: #a0aec0;
+        }
+
+        .card-footer .votes {
+            display: flex;
+            align-items: center;
+        }
+
+        .card-footer .votes i {
+            margin-right: 0.25rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .card-footer .votes .upvote:hover,
+        .card-footer .votes .downvote:hover {
+            color: var(--accent);
+        }
+
+        .see-script {
+            background: var(--accent);
+            color: var(--text-color);
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 1rem;
+            display: block;
+            text-align: center;
+        }
+
+        .see-script:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #2d2d2d;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .modal-header, .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header {
+            margin-bottom: 1rem;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover, .close:focus {
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        #editor {
+            height: 400px;
+            width: 100%;
+            background-color: #1f1f1f;
+            color: #fff;
+        }
+
+        /* Form styles */
+        .form-container {
+            background: none;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .form-container h1 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-container label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            display: block;
+        }
+
+        .form-container input, .form-container textarea, .form-container select {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            background: var(--topnav);
+            border: none;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            background: var(--button-bg);
+            color: var(--text-color);
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-container button:hover {
+            background: var(--button-bg-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px rgba(203, 13, 63, 0.6);
+        }
+
+        .form-container input:focus, 
+        .form-container textarea:focus {
+            border-color: var(--focus-color);
+            box-shadow: 0 0 10px rgba(203, 13, 63, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-main text-white font-sans">
+    <div class="bg-accent-gradient header text-left text-sm font-semibold text-white w-full">
+        Go to our <a href="https://example.com" class="underline text-white">homepage</a> and find a bug in our bug bounty program to receive a Bug Bounty Hunter role on our <a href="https://discord.gg/3Syz24X2UD" class="underline text-white">Discord</a>!
+    </div>
+    <!-- Sidebar -->
+    <nav class="bg-topnav fixed inset-y-0 left-0 flex flex-col w-64 p-4">
+        <div class="flex flex-col items-center mb-6">
+            <img src="{{ url_for('static', filename='assets/logo.png') }}" alt="Logo" class="w-16 mb-4">
+            <h1 class="text-xl font-bold">Nihon Cloud Storage</h1>
+        </div>
+        <div class="flex flex-col space-y-2">
+            <a href="{{ url_for('index') }}" class="nav-link">
+                <i class="fas fa-home mr-3"></i> HOME
+            </a>
+            <a href="{{ url_for('rawdata') }}" class="nav-link">
+                <i class="fas fa-database mr-3"></i> RAW DATA
+            </a>
+            <a href="{{ url_for('profile') }}" class="nav-link">
+                <i class="fas fa-user mr-3"></i> PROFILE
+            </a>
+            <a href="{{ url_for('staff') }}" class="nav-link">
+                <i class="fas fa-users mr-3"></i> STAFF
+            </a>
+            <a href="{{ url_for('tos') }}" class="nav-link">
+                <i class="fas fa-file-alt mr-3"></i> TOS
+            </a>
+            <a href="{{ url_for('changelogs') }}" class="nav-link">
+                <i class="fas fa-file-alt mr-3"></i> CHANGELOGS
+            </a>
+        </div>
+        <div class="profile mt-auto">
+            <img src="{{ url_for('static', filename='assets/default_avatar.png') if user.avatar_url is none else url_for('static', filename=user.avatar_url) }}"
+                alt="Profile Picture">
+            <div class="profile-info">
+                <div class="username">{{ user.username }}</div>
+                <div class="role"
+                    style="background-color: {{ user.role_color if user.role_color else 'rgba(45, 55, 72, 0.6)' }};">{{
+                    user.role }}</div>
+            </div>
+            <div class="profile-actions">
+                <i class="fas fa-cog"></i>
+                <i class="fas fa-sign-out-alt" onclick="signOut()"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="ml-64 p-8 flex flex-col h-screen main-content">
+        <div class="form-container">
+            <h1 class="text-3xl font-bold mb-6">Create Raw Data</h1>
+            <form id="createRawDataForm">
+                <label for="title" class="block text-md font-medium mb-2">Title</label>
+                <input type="text" id="title" name="title" class="p-2">
+        
+                <label for="description" class="block text-md font-medium mb-2">Description</label>
+                <textarea id="description" name="description" class="p-2"></textarea>
+        
+                <label for="script" class="block text-md font-medium mb-2">Lua Script</label>
+                <textarea id="script" name="script" class="p-2"></textarea>
+        
+                <button type="button" onclick="submitForm()">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Viewing Script -->
+    <div id="scriptModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title"></h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div id="modal-description" class="mb-4"></div>
+            <div id="editor"></div>
+        </div>
+    </div>
+
+    <!-- Include Ace Editor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js" integrity="sha384-AK4bW5gXw6r3fsu8V4s6cBDM6jsRELSskUjtAIMWWZfHE/ZWvgG6PLsWnxnFgx36" crossorigin="anonymous"></script>
+    <script>
+        function signOut() {
+            fetch('/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token() }}'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    window.location.href = "{{ url_for('login') }}";
+                } else {
+                    alert("Sign out failed.");
+                }
+            });
+        }
+
+        function submitForm() {
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const script = document.getElementById('script').value;
+
+            if (!title || !description || !script) {
+                alert('All fields are required.');
+                return;
+            }
+
+            const data = {
+                title: title,
+                description: description,
+                script: script
+            };
+
+            fetch('/upload_script', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify(data)
+            }).then(response => {
+                if (response.ok) {
+                    alert('Script uploaded successfully!');
+                    window.location.href = "{{ url_for('rawdata') }}";
+                } else {
+                    alert('Failed to upload script.');
+                }
+            });
+        }
+
+        function openScriptModal(scriptId) {
+            fetch(`/get_script/${scriptId}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('modal-title').innerText = data.title;
+                    document.getElementById('modal-description').innerText = data.description;
+                    ace.edit("editor").setValue(data.content, -1);  // Load the script content into the editor
+                    document.getElementById('scriptModal').style.display = 'flex';
+                });
+        }
+
+        function closeModal() {
+            document.getElementById('scriptModal').style.display = 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            ace.edit("editor", {
+                mode: "ace/mode/lua",
+                theme: "ace/theme/monokai"
+            });
+        });
+    </script>
+</body>
+</html>

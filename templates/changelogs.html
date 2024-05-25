@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changelogs - Nihon Cloud Storage</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+        :root {
+            --topnav: #17191d;
+            --main: #0f0f0f;
+            --accent: #cb0d3f;
+            --accentlighter: #a00a32;
+            --accent-gradient: linear-gradient(135deg, #cb0d3f 0%, #a00a32 100%);
+            --text-color: #ffffff;
+            --discord-blue: #7289da;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            background: var(--main);
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-col {
+            flex-direction: column;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .h-screen {
+            height: 100vh;
+        }
+
+        .bg-main {
+            background-color: var(--main);
+        }
+
+        .bg-topnav {
+            background-color: var(--topnav);
+        }
+
+        .bg-accent {
+            background-color: var(--accent);
+        }
+
+        .bg-accent-gradient {
+            background: var(--accent-gradient);
+        }
+
+        .text-white {
+            color: var(--text-color);
+        }
+
+        .font-sans {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .w-16 {
+            width: 4rem;
+        }
+
+        .p-4 {
+            padding: 1rem;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-8 {
+            margin-bottom: 2rem;
+        }
+
+        .rounded-lg {
+            border-radius: 0.5rem;
+        }
+
+        .shadow-lg {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .block {
+            display: block;
+        }
+
+        .mt-4 {
+            margin-top: 1rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .text-gray-300 {
+            color: #d1d5db;
+        }
+
+        .text-red-600 {
+            color: #e53e3e;
+        }
+
+        .rounded {
+            border-radius: 0.25rem;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .h-full {
+            height: 100%;
+        }
+
+        .ml-64 {
+            margin-left: 16rem;
+        }
+
+        .p-8 {
+            padding: 2rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .text-1xl {
+            font-size: 1rem;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+        }
+
+        .bg-gray-900 {
+            background-color: #17191d;
+        }
+
+        .nav-link {
+            font-family: 'Poppins', sans-serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 0.5rem 1rem;
+            margin: 0 0.25rem;
+            display: flex;
+            align-items: center;
+            color: #d1d5db;
+            border-radius: 0.25rem;
+            background: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: transform 0.3s;
+            text-decoration: none; /* Remove underlines */
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-gradient);
+            z-index: -1;
+            transition: left 0.3s ease-in-out;
+        }
+
+        .nav-link:hover::before {
+            left: 0;
+        }
+
+        .nav-link:hover {
+            color: var(--text-color);
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 1rem;
+            background-color: var(--topnav);
+        }
+
+        .navbar a {
+            margin: 0 0.25rem;
+            text-decoration: none; /* Remove underlines from navbar links */
+        }
+
+        .bottom-icons {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+
+        .bottom-icons a {
+            text-align: center;
+        }
+
+        .header {
+            padding: 1rem 1rem 1rem 18rem;
+        }
+
+        .gradient-text {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0.5rem;
+            margin-top: auto;
+            background: var(--topnav);
+            border-radius: 0.25rem;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-gradient);
+            z-index: -1;
+            transition: left 0.3s ease-in-out;
+        }
+
+        .profile:hover::before {
+            left: 0;
+        }
+
+        .profile img {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            flex-grow: 1;
+            font-size: 0.875rem;
+            position: relative;
+        }
+
+        .profile-info .username {
+            font-size: 0.9em;
+            font-weight: 600;
+            line-height: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-info .role {
+            font-size: 0.6rem;
+            padding: 0.125rem 0.25rem;
+            border-radius: 0.25rem;
+            color: var(--text-color);
+            background-color: rgba(45, 55, 72, 0.6);
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .profile-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-actions i {
+            margin: 0 0.25rem;
+            color: #8e9297;
+            cursor: pointer;
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .profile-actions i:hover {
+            transform: rotate(360deg);
+            color: var(--text-color);
+        }
+
+        .main-content {
+            padding: 2rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center align main content */
+        }
+
+        .changelogs-content {
+            padding: 2rem;
+            margin-bottom: 2rem;
+            width: 100%;
+            max-width: 800px;
+            text-align: left;
+            line-height: 1.6;
+        }
+
+        .changelogs-content h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .changelogs-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accentlighter);
+            margin-top: 1rem;
+            border-bottom: 1px solid var(--accentlighter);
+            padding-bottom: 0.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .changelogs-content p {
+            margin: 0.75rem 0;
+        }
+
+        .changelogs-content ul {
+            list-style: disc;
+            margin-left: 1.5rem;
+        }
+
+        .changelogs-content ul li {
+            margin: 0.5rem 0;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        .link {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body class="bg-main text-white font-sans">
+    <div class="bg-accent-gradient header text-left text-sm font-semibold text-white w-full">
+        Go to our <a href="https://example.com" class="underline text-white">homepage</a> and find a bug in our bug
+        bounty program to receive a Bug Bounty Hunter role on our <a href="https://discord.gg/3Syz24X2UD"
+            class="underline text-white">Discord</a>!
+    </div>
+    <!-- Sidebar -->
+    <nav class="bg-topnav fixed inset-y-0 left-0 flex flex-col w-64 p-4">
+        <div class="flex flex-col items-center mb-6">
+            <img src="{{ url_for('static', filename='assets/logo.png') }}" alt="Logo" class="w-16 mb-4">
+            <h1 class="text-xl font-bold">Nihon Cloud Storage</h1>
+        </div>
+        <div class="flex flex-col space-y-2">
+            <a href="{{ url_for('index') }}" class="nav-link">
+                <i class="fas fa-home mr-3"></i> HOME
+            </a>
+            <a href="{{ url_for('rawdata') }}" class="nav-link">
+                <i class="fas fa-database mr-3"></i> RAW DATA
+            </a>
+            <a href="{{ url_for('profile') }}" class="nav-link">
+                <i class="fas fa-user mr-3"></i> PROFILE
+            </a>
+            <a href="{{ url_for('staff') }}" class="nav-link">
+                <i class="fas fa-users mr-3"></i> STAFF
+            </a>
+            <a href="{{ url_for('tos') }}" class="nav-link">
+                <i class="fas fa-file-alt mr-3"></i> TOS
+            </a>
+            <a href="{{ url_for('changelogs') }}" class="nav-link">
+                <i class="fas fa-file-alt mr-3"></i> CHANGELOGS
+            </a>
+        </div>
+        <div class="profile mt-auto">
+            <img src="{{ url_for('static', filename='assets/default_avatar.png') if user.avatar_url is none else url_for('static', filename=user.avatar_url) }}"
+                alt="Profile Picture">
+            <div class="profile-info">
+                <div class="username">{{ user.username }}</div>
+                <div class="role"
+                    style="background-color: {{ user.role_color if user.role_color else 'rgba(45, 55, 72, 0.6)' }};">{{
+                    user.role }}</div>
+            </div>
+            <div class="profile-actions">
+                <i class="fas fa-cog"></i>
+                <i class="fas fa-sign-out-alt" onclick="signOut()"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="ml-64 p-8 main-content">
+        <div class="changelogs-content">
+            <div class="text-sm uppercase mb-4 text-center">CHANGELOGS</div>
+            <h2 class="text-center">Nihon Cloud Storage Changelogs</h2>
+            <p>Stay up-to-date with the latest changes and improvements to our platform. Below you'll find a detailed list of updates, enhancements, and bug fixes.</p>
+            
+            <h3>Version 2.1.0 - 2024-05-25</h3>
+            <ul>
+                <li>Database:
+                    <ul>
+                        <li>Optimized query performance for large datasets.</li>
+                        <li>Improved data indexing for faster retrieval times.</li>
+                        <li>Implemented new backup and recovery processes.</li>
+                    </ul>
+                </li>
+                <li>UI/UX:
+                    <ul>
+                        <li>Revamped the user profile page for better accessibility.</li>
+                        <li>Introduced a new dark mode theme toggle.</li>
+                        <li>Updated navigation bar for a cleaner look.</li>
+                    </ul>
+                </li>
+                <li>Backend:
+                    <ul>
+                        <li>Refactored API endpoints for enhanced security.</li>
+                        <li>Added new logging mechanisms for error tracking.</li>
+                        <li>Improved session management and authentication flow.</li>
+                    </ul>
+                </li>
+                <li>Frontend:
+                    <ul>
+                        <li>Enhanced responsiveness for mobile devices.</li>
+                        <li>Fixed issues with cross-browser compatibility.</li>
+                        <li>Updated CSS for a more cohesive design language.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Version 2.0.0 - 2024-04-10</h3>
+            <ul>
+                <li>Database:
+                    <ul>
+                        <li>Migrated to a new database engine for better scalability.</li>
+                        <li>Cleaned up obsolete data entries to reduce clutter.</li>
+                        <li>Enhanced data encryption methods.</li>
+                    </ul>
+                </li>
+                <li>UI/UX:
+                    <ul>
+                        <li>Redesigned the homepage with a modern layout.</li>
+                        <li>Improved user onboarding experience.</li>
+                        <li>Added tooltips for better navigation guidance.</li>
+                    </ul>
+                </li>
+                <li>Backend:
+                    <ul>
+                        <li>Implemented rate limiting on API endpoints.</li>
+                        <li>Optimized server response times.</li>
+                        <li>Fixed various security vulnerabilities.</li>
+                    </ul>
+                </li>
+                <li>Frontend:
+                    <ul>
+                        <li>Updated JavaScript libraries to latest versions.</li>
+                        <li>Fixed layout issues on smaller screens.</li>
+                        <li>Enhanced form validation mechanisms.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Version 1.9.0 - 2024-03-05</h3>
+            <ul>
+                <li>Database:
+                    <ul>
+                        <li>Introduced new relational data models.</li>
+                        <li>Enhanced data migration scripts.</li>
+                    </ul>
+                </li>
+                <li>UI/UX:
+                    <ul>
+                        <li>Improved visual feedback for user actions.</li>
+                        <li>Added new animations to button interactions.</li>
+                    </ul>
+                </li>
+                <li>Backend:
+                    <ul>
+                        <li>Refactored codebase for better maintainability.</li>
+                        <li>Introduced unit tests for critical functionalities.</li>
+                    </ul>
+                </li>
+                <li>Frontend:
+                    <ul>
+                        <li>Fixed bugs related to form submissions.</li>
+                        <li>Updated CSS styles for a more modern look.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function signOut() {
+            fetch('/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token() }}'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    window.location.href = "{{ url_for('login') }}";
+                } else {
+                    alert("Sign out failed.");
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
